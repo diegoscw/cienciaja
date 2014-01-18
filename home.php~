@@ -1,0 +1,107 @@
+<style>
+.tabs > ul > li{
+	display:block;
+	float:left;
+	color:#FFF;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-top-left-radius:4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px; 
+	background: #C9C9C9; /* old browsers */
+	background: -moz-linear-gradient(top, #0C91EC 0%, #257AB6 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0C91EC), color-stop(100%,#257AB6)); /* webkit */
+}
+
+.tabs > ul > li:hover{
+	background: #FFFFFF; /* old browsers */
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #F3F3F3 10%, #F3F3F3 50%, #FFFFFF 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(10%,#F3F3F3), color-stop(50%,#F3F3F3), color-stop(100%,#FFFFFF)); /* webkit */
+	cursor:pointer;
+	color: #333;
+}
+
+.tabs > ul > li.tabActiveHeader{
+	background: #FFFFFF; /* old browsers */
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #F3F3F3 10%, #F3F3F3 50%, #FFFFFF 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(10%,#F3F3F3), color-stop(50%,#F3F3F3), color-stop(100%,#FFFFFF)); /* webkit */
+	cursor:pointer;
+	color: #333;
+}
+</style>
+
+<script type="text/javascript">
+window.onload=function() {
+	// get tab container
+	var container = document.getElementById("tabContainer");
+	// set current tab
+	var navitem = container.querySelector(".tabs ul li");
+	//store which tab we are on
+	var ident = navitem.id.split("_")[1];
+	navitem.parentNode.setAttribute("data-current",ident);
+	//set current tab with class of activetabheader
+	navitem.setAttribute("class","tabActiveHeader");
+
+	//hide two tab contents we don't need
+	var pages = container.querySelectorAll(".tabpage");
+	for (var i = 1; i < pages.length; i++) {
+		pages[i].style.display="none";
+	}
+
+	//this adds click event to tabs
+	var tabs = container.querySelectorAll(".tabs ul li");
+	for (var i = 0; i < tabs.length; i++) {
+		tabs[i].onclick=displayPage;
+	}
+}
+
+// on click of one of tabs
+function displayPage() {
+	var current = this.parentNode.getAttribute("data-current");
+	//remove class of activetabheader and hide old contents
+	document.getElementById("tabHeader_" + current).removeAttribute("class");
+	document.getElementById("tabpage_" + current).style.display="none";
+
+	var ident = this.id.split("_")[1];
+	//add class of activetabheader to new active tab and show contents
+	this.setAttribute("class","tabActiveHeader");
+	document.getElementById("tabpage_" + ident).style.display="block";
+	this.parentNode.setAttribute("data-current",ident);
+}
+</script>
+      
+<div id="tabContainer">
+    <div class="tabs">
+        <ul id="menu_aula">
+            <li id="tabHeader_1"><a style="background:url(images/btn/btn_aula.png) 15px center no-repeat;">Aula</a></li>
+            <li id="tabHeader_2"><a style="background:url(images/btn/btn_exercicio.png) 15px center no-repeat;">Exercicios</a></li>
+            <li id="tabHeader_3"><a style="background:url(images/btn/btn_extra.png) 15px center no-repeat;">Extras</a></li>
+        </ul>
+    </div>
+    <span class="clear"></span>
+    <div class="tabscontent">
+      <div class="tabpage" id="tabpage_1">
+          <article class="box_lft">
+            <iframe width="660" height="400" src="//www.youtube.com/embed/YdpWbofz8T0" frameborder="0" allowfullscreen></iframe>
+            <a id="btn_app">Material Escrito</a>
+            </article><aside>
+            <div class="fb-comments" data-href="http://www.ciniciato.com.br/cienciaja/" data-width="280" data-numposts="3" data-colorscheme="light"></div>
+            
+            </aside>
+      </div>
+      <div class="tabpage" id="tabpage_2">
+      
+      </div>
+      <div class="tabpage" id="tabpage_3">
+			<? include 'anima/animacao.php'?>
+      </div>
+    </div>
+    <span class="clear"></span>
+
+
